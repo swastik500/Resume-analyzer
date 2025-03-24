@@ -3,121 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume AI Analyzer</title>
+    <title>Resume AI Analyzer - Smart Resume Analysis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #357abd;
+            --dark-bg: #0f1117;
+            --card-bg: rgba(255, 255, 255, 0.05);
         }
-        .container {
-            max-width: 800px;
-            margin-top: 50px;
+        body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f2e 100%);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(135deg, rgba(15, 17, 23, 0.97) 0%, rgba(26, 31, 46, 0.97) 100%),
+                url('/static/images/astronaut-bg.png'),
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJzdGFycyIgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGZpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3N0YXJzKSIvPjwvc3ZnPg==');
+            background-size: cover, contain, cover;
+            background-position: center, center, center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(120deg, #ffffff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        .card-header {
-            background-color: #4a90e2;
-            color: white;
-            border-radius: 15px 15px 0 0 !important;
-            padding: 20px;
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
         }
-        .form-label {
-            font-weight: 500;
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
         }
-        .btn-primary {
-            background-color: #4a90e2;
-            border: none;
-            padding: 10px 30px;
+        .feature-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .btn-primary:hover {
-            background-color: #357abd;
+        .card p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 0;
         }
-        .upload-container {
-            margin: 20px 0;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .upload-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-top: 4rem;
         }
         .upload-area {
-            border: 2px dashed #4a90e2;
-            border-radius: 10px;
-            padding: 40px 20px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            background-color: #f8f9fa;
-            position: relative;
         }
         .upload-area:hover {
-            border-color: #357abd;
-            background-color: #e9f0f7;
+            border-color: var(--primary-color);
+            background: rgba(74, 144, 226, 0.1);
         }
-        .upload-icon {
-            margin-bottom: 15px;
-            color: #4a90e2;
-        }
-        .upload-title {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .upload-text {
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-        .upload-support {
-            color: #8c98a4;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        .file-input {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .browse-btn {
-            background-color: #4a90e2;
-            color: white;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(74, 144, 226, 0.3);
+            transition: all 0.3s ease;
         }
-        .browse-btn:hover {
-            background-color: #357abd;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
+        }
+        .navbar {
+            background: rgba(15, 17, 23, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.5rem;
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--primary-color);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="card-header text-center">
-                <h1 class="h3 mb-0">Resume AI Analyzer</h1>
-                <p class="mb-0">Upload your resume and job description for AI-powered analysis</p>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Resume AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary" href="#upload">Analyze Resume</a></li>
+                </ul>
             </div>
-            <div class="card-body p-4">
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content" data-aos="fade-right">
+                    <h1 class="hero-title">Elevate Your Career with AI</h1>
+                    <p class="hero-subtitle">Get instant, AI-powered insights on your resume and match with your dream job.</p>
+                    <a href="#upload" class="btn btn-primary btn-lg">Start Free Analysis</a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://img.freepik.com/premium-photo/cute-robot-unknown-planet-space-electronic-galaxy-technology-technics-soil-study-science-8k-travel-gesture-high-resolution-hand-science-fiction-concept-ai_579956-3536.jpg" alt="AI Resume Analysis" class="img-fluid hero-image" style="max-width: 80%; margin: 0 auto; display: block; filter: drop-shadow(0 10px 20px rgba(74, 144, 226, 0.3)); border-radius: 15px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 text-center">
+                        <i class="bi bi-lightning-charge feature-icon"></i>
+                        <h3 class="feature-title">Smart Analysis</h3>
+                        <p>Advanced AI algorithms analyze your resume for optimal job matching and improvements.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 text-center">
+                        <i class="bi bi-graph-up feature-icon"></i>
+                        <h3 class="feature-title">Detailed Insights</h3>
+                        <p>Get comprehensive feedback on your resume's strengths and areas for improvement.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 text-center">
+                        <i class="bi bi-briefcase feature-icon"></i>
+                        <h3 class="feature-title">Job Matching</h3>
+                        <p>Find the perfect job matches based on your skills and experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="upload" class="py-5">
+        <div class="container">
+            <div class="upload-section" data-aos="fade-up">
+                <h2 class="text-center mb-4">Upload Your Resume</h2>
                 <form method="POST" enctype="multipart/form-data">
-                    <div class="mb-4 upload-container">
-                        <div class="upload-area" id="dropZone">
-                            <div class="upload-icon">
-                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
-                            </div>
-                            <h3 class="upload-title">Upload your resume</h3>
-                            <p class="upload-text">Drag and drop your resume file here, or click to browse</p>
-                            <p class="upload-support">Supports PDF, DOC, DOCX (Max 5MB)</p>
-                            <input type="file" class="file-input" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-                            <button type="button" class="browse-btn">Browse Files</button>
-                        </div>
+                    <div class="upload-area mb-4">
+                        <i class="bi bi-cloud-upload feature-icon"></i>
+                        <h3>Drag & Drop Your Resume</h3>
+                        <p class="text-muted">or click to browse</p>
+                        <input type="file" class="d-none" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
                     </div>
                     <div class="mb-4">
                         <label for="job_description" class="form-label">Job Description</label>
@@ -129,12 +236,27 @@
                 </form>
             </div>
         </div>
-        <footer class="text-center mt-4 text-muted">
-            <p>Powered by Resume AI Analysis</p>
-        </footer>
-    </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        document.querySelector('.upload-area').addEventListener('click', () => {
+            document.querySelector('#resume').click();
+        });
+
+        document.querySelector('#resume').addEventListener('change', (e) => {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                document.querySelector('.upload-area h3').textContent = fileName;
+            }
+        });
+    </script>
 </body>
 </html>
 
