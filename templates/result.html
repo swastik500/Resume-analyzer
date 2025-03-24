@@ -19,6 +19,8 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            padding-top: 80px;
+            scroll-behavior: smooth;
         }
         .container {
             max-width: 1200px;
@@ -107,9 +109,25 @@
             margin-bottom: 2rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
+        .navbar {
+            background: rgba(15, 17, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
         .nav-link {
             color: rgba(255, 255, 255, 0.9);
             font-weight: 600;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
             text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         }
         .nav-link.active {
@@ -117,13 +135,47 @@
             background-color: rgba(74, 144, 226, 0.1);
             border-color: var(--primary-color);
         }
+            .nav-link:hover {
+            color: var(--primary-color);
+            background: rgba(74, 144, 226, 0.1);
+        }
+        section {
+            padding: 4rem 0;
+            scroll-margin-top: 80px;
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Resume AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#suggestions">Improve</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#jobs">Jobs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <h1 class="dashboard-title text-center mb-5">Resume Analysis Results</h1>
+        <section id="overview">
+            <h1 class="dashboard-title text-center mb-5">Resume Analysis Results</h1>
         
-        <div class="row g-4 mb-5">
+        <div class="row g-4 mb-5" data-aos="fade-up">
             <div class="col-md-4">
                 <div class="card metric-card">
                     <h3 class="metric-title">Match Score</h3>
@@ -147,8 +199,11 @@
             </div>
         </div>
 
-        <div class="card mb-5">
-            <h2 class="suggestion-header">Matched Keywords</h2>
+        </section>
+
+        <section id="skills">
+            <div class="card mb-5" data-aos="fade-up">
+                <h2 class="suggestion-header">Matched Keywords</h2>
             <div class="suggestion-list">
                 {% for keyword in keywords %}
                 <li>{{ keyword }}</li>
@@ -156,15 +211,21 @@
             </div>
         </div>
 
-        <div class="card mb-5">
-            <h2 class="suggestion-header">AI Suggestions</h2>
+        </section>
+
+        <section id="suggestions">
+            <div class="card mb-5" data-aos="fade-up">
+                <h2 class="suggestion-header">AI Suggestions</h2>
             <div class="suggestion-category">
                 {{ suggestions | safe }}
             </div>
         </div>
 
-        <div class="card">
-            <h2 class="suggestion-header">Recommended Job Matches</h2>
+        </section>
+
+        <section id="jobs">
+            <div class="card" data-aos="fade-up">
+                <h2 class="suggestion-header">Recommended Job Matches</h2>
             <div class="suggestion-list">
                 {% for job in job_matches.split(',') %}
                 <li>{{ job.strip() }}</li>
