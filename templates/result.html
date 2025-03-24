@@ -212,7 +212,39 @@
                             <div class="suggestion-section">
                                 {% if suggestions %}
                                     {% set suggestions_text = suggestions[1] %}
-                                    {{ suggestions_text | safe }}
+                                    <div class="suggestion-category">
+                                        <h3 class="suggestion-header">Resume Focus</h3>
+                                        <ul class="suggestion-list">
+                                            <li>Align your resume content with the specific job requirements</li>
+                                            <li>Highlight relevant achievements and experiences</li>
+                                            <li>Remove outdated or irrelevant information</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="suggestion-category">
+                                        <h3 class="suggestion-header">Skills Section</h3>
+                                        <ul class="suggestion-list">
+                                            <li>Add more technical skills that match the job requirements</li>
+                                            <li>Organize skills by categories (Technical, Soft Skills, Tools)</li>
+                                            <li>Include proficiency levels for key skills</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="suggestion-category">
+                                        <h3 class="suggestion-header">Experience Description</h3>
+                                        <ul class="suggestion-list">
+                                            <li>Use action verbs to describe your achievements</li>
+                                            <li>Include specific examples of projects and their impact</li>
+                                            <li>Focus on results and measurable outcomes</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="suggestion-category">
+                                        <h3 class="suggestion-header">Additional Improvements</h3>
+                                        <ul class="suggestion-list">
+                                            {{ suggestions_text | safe }}
+                                        </ul>
+                                    </div>
                                 {% else %}
                                     <p class="text-muted text-center">No suggestions available. Please ensure a job description is provided for accurate analysis.</p>
                                 {% endif %}
