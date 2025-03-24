@@ -1,0 +1,8 @@
+Flask
+PyMuPDF
+python-docx
+spacy
+nltk
+transformers
+openai
+google-generativeai
