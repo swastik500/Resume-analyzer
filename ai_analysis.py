@@ -2,7 +2,7 @@ import google.generativeai as genai
 from job_matching import compare_resume_with_job
 from resume_parser import extract_resume_sections
 
-genai.configure(api_key="AIzaSyBTifvSxk2-drcNIbrC2AqrfhjzD3DldPU")
+genai.configure(api_key="you-api-key")
 
 def calculate_resume_score(resume_text, job_description):
     # Calculate match score with job description (30% weight)
