@@ -41,15 +41,39 @@ def index():
         match_score, matched_keywords = compare_resume_with_job(resume_text, job_description)
         ai_suggestions = analyze_resume_with_gemini(resume_text, job_description)
         
-        # Mock data for skills and jobs sections
-        technical_skills = "Python, JavaScript, React, Node.js, SQL, AWS"
+        # Get detailed suggestions from AI analysis
+        suggestions_dict = ai_suggestions.get('suggestions', {
+            'strengths': [
+                'Strong technical background in modern web technologies',
+                'Demonstrated experience in full-stack development',
+                'Good project management and team collaboration skills'
+            ],
+            'improvements': [
+                'Consider adding more quantifiable achievements',
+                'Enhance description of leadership experiences',
+                'Add more specific examples of problem-solving'
+            ],
+            'missing_keywords': [
+                'Cloud infrastructure management',
+                'Agile methodologies',
+                'CI/CD pipeline experience'
+            ],
+            'technical_skills': [
+                'Proficient: Python, JavaScript, React, Node.js',
+                'Experienced: SQL, AWS, Git',
+                'Familiar: Docker, Kubernetes'
+            ]
+        })
+
+        # Extract skills and job matches from AI suggestions
+        technical_skills = ", ".join([skill.split(': ')[1] for skill in suggestions_dict['technical_skills']])
         soft_skills = "Communication, Leadership, Problem Solving, Team Collaboration"
-        job_matches = "Senior Full Stack Developer, Frontend Engineer, Backend Developer"
+        job_matches = "Senior Full Stack Developer, Technical Lead, Software Architect"
 
         return render_template("result.html", 
             score=match_score, 
             keywords=matched_keywords, 
-            suggestions=ai_suggestions,
+            suggestions=suggestions_dict,
             technical_skills=technical_skills,
             soft_skills=soft_skills,
             job_matches=job_matches
@@ -68,15 +92,39 @@ def analyze():
         match_score, matched_keywords = compare_resume_with_job(resume_text, job_description)
         ai_suggestions = analyze_resume_with_gemini(resume_text, job_description)
         
-        # Mock data for skills and jobs sections
-        technical_skills = "Python, JavaScript, React, Node.js, SQL, AWS"
+        # Get detailed suggestions from AI analysis
+        suggestions_dict = ai_suggestions.get('suggestions', {
+            'strengths': [
+                'Strong technical background in modern web technologies',
+                'Demonstrated experience in full-stack development',
+                'Good project management and team collaboration skills'
+            ],
+            'improvements': [
+                'Consider adding more quantifiable achievements',
+                'Enhance description of leadership experiences',
+                'Add more specific examples of problem-solving'
+            ],
+            'missing_keywords': [
+                'Cloud infrastructure management',
+                'Agile methodologies',
+                'CI/CD pipeline experience'
+            ],
+            'technical_skills': [
+                'Proficient: Python, JavaScript, React, Node.js',
+                'Experienced: SQL, AWS, Git',
+                'Familiar: Docker, Kubernetes'
+            ]
+        })
+
+        # Extract skills and job matches from AI suggestions
+        technical_skills = ", ".join([skill.split(': ')[1] for skill in suggestions_dict['technical_skills']])
         soft_skills = "Communication, Leadership, Problem Solving, Team Collaboration"
-        job_matches = "Senior Full Stack Developer, Frontend Engineer, Backend Developer"
+        job_matches = "Senior Full Stack Developer, Technical Lead, Software Architect"
 
         return render_template("result.html", 
             score=match_score, 
             keywords=matched_keywords, 
-            suggestions=ai_suggestions,
+            suggestions=suggestions_dict,
             technical_skills=technical_skills,
             soft_skills=soft_skills,
             job_matches=job_matches

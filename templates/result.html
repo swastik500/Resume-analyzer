@@ -68,10 +68,88 @@
         }
         .suggestion-category {
             margin-bottom: 2.5rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            transition: transform 0.3s ease;
+            padding: 2.5rem;
+            background: rgba(248, 245, 245, 0.08);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .suggestion-category:hover {
+            transform: translateY(-5px);
+            background: rgba(248, 245, 245, 0.12);
+            border-color: var(--primary-color);
+        }
+        
+        .suggestion-header {
+            color: #ffffff;
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .suggestion-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+        
+        .suggestion-list li {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            position: relative;
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .suggestion-list li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+            border-color: var(--primary-color);
+        }
+        
+        .suggestion-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .h4.text-white {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color) !important;
+            text-shadow: 0 0 15px rgba(74, 144, 226, 0.3);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        .suggestion-header {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
         .suggestion-category:hover {
             transform: translateY(-5px);
@@ -91,10 +169,21 @@
             margin: 1rem 0;
         }
         .suggestion-list li {
-            color: rgba(255, 255, 255, 0.9);
+            color: #ffffff;
             margin-bottom: 0.75rem;
             position: relative;
             padding-left: 1.5rem;
+            font-weight: 500;
+        }
+        .metric-subtitle {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .card p {
+            color: #ffffff;
+            line-height: 1.6;
+            font-weight: 500;
         }
         .suggestion-list li:before {
             content: "→";
@@ -216,10 +305,39 @@
         <section id="suggestions">
             <div class="card mb-5" data-aos="fade-up">
                 <h2 class="suggestion-header">AI Suggestions</h2>
-            <div class="suggestion-category">
-                {{ suggestions | safe }}
+                <div class="suggestion-category mb-4">
+                    <h3 class="h4 text-white mb-3">Strengths</h3>
+                    <ul class="suggestion-list">
+                        {% for strength in suggestions.strengths %}
+                        <li>{{ strength }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="suggestion-category mb-4">
+                    <h3 class="h4 text-white mb-3">Areas for Improvement</h3>
+                    <ul class="suggestion-list">
+                        {% for improvement in suggestions.improvements %}
+                        <li>{{ improvement }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="suggestion-category mb-4">
+                    <h3 class="h4 text-white mb-3">Missing Keywords</h3>
+                    <ul class="suggestion-list">
+                        {% for keyword in suggestions.missing_keywords %}
+                        <li>{{ keyword }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="suggestion-category">
+                    <h3 class="h4 text-white mb-3">Technical Skills</h3>
+                    <ul class="suggestion-list">
+                        {% for skill in suggestions.technical_skills %}
+                        <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        </div>
 
         </section>
 

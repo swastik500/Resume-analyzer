@@ -36,25 +36,52 @@ def analyze_resume_with_gemini(resume_text, job_description):
     model = genai.GenerativeModel("gemini-1.5-flash")
     score = calculate_resume_score(resume_text, job_description)
     
-    # Create a structured prompt for better formatting
     analysis_prompt = f"""
-Analyze the resume against the job description and provide structured feedback in the following format:
-
-**Strengths:**
-- List key strengths and matches
-
-**Areas for Improvement:**
-- List specific improvement suggestions
-
-**Missing Keywords:**
-- List important keywords from job description missing in resume
-
-Resume: {resume_text}
-
-Job Description: {job_description}
-"""
+    Analyze this resume against the job description and provide structured feedback in JSON format with the following categories:
+    - Strengths
+    - Areas for Improvement
+    - Missing Keywords
+    - Technical Skills
+    - Soft Skills
+    
+    Resume: {resume_text}
+    
+    Job Description: {job_description}
+    """
     
     response = model.generate_content(analysis_prompt)
-    formatted_response = response.text.strip()
     
-    return str(score), formatted_response
+    try:
+        # Structure the suggestions in a dictionary format
+        suggestions = {
+            "strengths": [],
+            "improvements": [],
+            "missing_keywords": [],
+            "technical_skills": [],
+            "soft_skills": []
+        }
+        
+        # Parse the response and populate the suggestions
+        current_category = None
+        for line in response.text.split('\n'):
+            line = line.strip()
+            if line in suggestions.keys():
+                current_category = line
+            elif line.startswith('- ') and current_category:
+                suggestions[current_category].append(line[2:])
+        
+        return {
+            'score': score,
+            'suggestions': suggestions
+        }
+    except Exception as e:
+        print(f"Error parsing AI response: {e}")
+        return {
+            'score': score,
+            'suggestions': {
+                'General Suggestions': [
+                    'Unable to generate detailed suggestions at this time.',
+                    'Please try again later.'
+                ]
+            }
+        }
